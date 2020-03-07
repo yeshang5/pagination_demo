@@ -30,16 +30,15 @@ public class UserService {
     }
 
     public PageInfo<User> findPage(User user,HttpServletRequest request, HttpServletResponse  response){
-        String pageNum= request.getParameter("pageNum");
-        String pageSize= request.getParameter("pageSize");
-        if (StrUtil.isNotBlank(pageNum) && StrUtil.isNotBlank(pageSize))
-        {
-            PageHelper.startPage(Integer.valueOf(pageNum),Integer.valueOf(pageSize));
-        }
+        String pageNumStr= request.getParameter("pageNum");
+        String pageSizeStr= request.getParameter("pageSize");
+        Integer pageNum=StrUtil.isNotBlank(pageNumStr)?Integer.valueOf(pageNumStr):1;
+        Integer pageSize=StrUtil.isNotBlank(pageSizeStr)?Integer.valueOf(pageSizeStr):10;
+
+        //默认分页显示10条数据,当传参pageSize=0时，不分页
+        PageHelper.startPage(pageNum,pageSize);
         List<User> userList=userMapper.findList(user);
         PageInfo<User> pageInfo=new PageInfo<User>(userList);
         return pageInfo;
     }
-
-
 }
