@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.baihao.modules.system.mapper.UserMapper">
+
+    <sql id="Columns">
+        a.id AS "id",
+        a.name AS "name",
+        a.password AS "password",
+        a.phone AS "phone"
+    </sql>
+
+
+    <select id="findList" resultType="com.baihao.modules.system.entity.User" >
+        SELECT
+        <include refid="Columns"/>
+        FROM sys_user a
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND a.phone = #{phone}
+            </if>
+        </where>
+    </select>
+    <select id="get" resultType="com.baihao.modules.system.entity.User">
+        SELECT
+            <include refid="Columns" />
+        FROM sys_user a
+        WHERE
+            a.id=#{id}
+    </select>
+
+    <!--<insert id="insert">
+        INSERT INTO fuck_ill(
+        id,
+        ill_id,
+        age,
+        sex,
+        title,
+        ill_detail,
+        doctor_answer,
+        time
+        ) VALUES (
+        #{id},
+        #{ill_id},
+        #{age},
+        #{sex},
+        #{title},
+        #{illDetail},
+        #{doctorAnswer},
+        #{time}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE fuck_ill SET
+        ill_id = #{illId},
+        age = #{age},
+        sex = #{sex},
+        title = #{title},
+        ill_detail = #{illDetail},
+        doctor_answer = #{doctorAnswer},
+        time = #{time},
+        WHERE id = #{id}
+    </update>
+
+    &lt;!&ndash;删除&ndash;&gt;
+    <delete id="delete">
+        DELETE FROM fuck_ill
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getLatestOne" resultType="com.bh.illnessinfo.entity.IllnessInfo">
+        SELECT
+            <include refid="Columns"/>
+        FROM fuck_ill a
+        ORDER BY a.ill_id desc
+        LIMIT 1
+    </select>-->
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
